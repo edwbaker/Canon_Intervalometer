@@ -1,3 +1,6 @@
+// Intervalometer for Canon EOS 450D (Digital Rebel XSi)
+// Ed Baker (http://ebaker.me.uk)
+
 const int focusPin = 12;
 const int photoPin = 11;
 const int interval = 5000;
