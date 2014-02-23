@@ -3,13 +3,21 @@
 
 const int focusPin = 12;
 const int photoPin = 11;
+const int laserPin = 0;
 const int interval = 5000;
+int mode = 1; 
+//mode 0 = intervalometer
+//mode 1 = laser trap
+
+int laserVal = 0;
 
 void setup() {
   pinMode(focusPin, OUTPUT);
   digitalWrite(focusPin, LOW);
   pinMode(photoPin, OUTPUT);
   digitalWrite(photoPin, LOW);
+  pinMode(laserPin, INPUT);
+  Serial.begin(9600);
 }
 
 int take_photo() {
@@ -29,7 +37,18 @@ int timed_delay(int delay_time) {
 }
 
 void loop() {
-  delay(interval - take_photo());
+switch (mode) {
+  case 0:
+    delay(interval - take_photo());
+    break;
+  case 1:
+    laserVal = analogRead(laserPin);
+    Serial.println(laserVal);
+    if (laserVal < 1023) {
+      take_photo(); 
+    }
+  break;
+}
 }
 
 
